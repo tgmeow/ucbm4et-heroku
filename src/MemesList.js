@@ -5,7 +5,7 @@ import MySingleButton from './MySingleButton.js';
 
 import axios from 'axios';
 
-const DATA_HOST = 'http://dnrm.herokuapp.com/data';
+const DATA_HOST = 'https://dnrm.herokuapp.com/data';
 
 const PAGE_SIZE = 20;
 const loadMoreText = 'Click to load more.';

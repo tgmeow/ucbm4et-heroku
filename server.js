@@ -9,6 +9,8 @@ console.log('-Server Init-');
 
 const mysql = require('mysql');
 const express = require('express');
+var http = require('http');
+var https = require('https');
 
 //use pubconfig for heroku deployment, config for local deployment.
 const config = process.env.PORT?require('./pubconfig'):require('./config');
@@ -313,7 +315,6 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static('./build'));
 
 
-
 //CURRENT TYPES OF BROWSING:
 //  TOP SINCE string
 //  SCHOOL YEAR number
@@ -330,7 +331,7 @@ app.get('/data', function(req, res){
         if(err) console.log(err);
 
             //TEMP DEV ONLY
-            res.setHeader('Access-Control-Allow-Origin', process.env.PORT?'http://dnrm.herokuapp.com/':'localhost:3000');
+            res.setHeader('Access-Control-Allow-Origin', process.env.PORT?'http://dnrm.herokuapp.com/':'localhost');
             res.setHeader('Access-Control-Allow-Methods', 'GET');
             //console.log(resp);
         res.setHeader('Content-Type', 'application/json');
@@ -351,7 +352,6 @@ app.get('/data', function(req, res){
 //     res.send('//TODO: Insert dank memes');
 // });
 
-
 // Handle 404
 app.use(function (req, res) {
   res.status(404);
@@ -360,7 +360,12 @@ app.use(function (req, res) {
 
 /*****END SERVER ROUTING*****/
 
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(app);
+httpServer.listen(app.get('port'), function() {
+  console.log("Node app is running at [host]:" + app.get('port'))
 });
 
+httpsServer.listen('8443', function() {
+  console.log("Node app is running at [host]:" + 8443)
+});
