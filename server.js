@@ -19,9 +19,9 @@ const config = process.env.PORT?require('./pubconfig'):require('./config');
 const airbrake = require('airbrake').createClient(config.ab.id, config.ab.key);
 airbrake.handleExceptions();
 
-
 var app = express();
 
+const DATA_ALLOWED_ORIGINS = ['http://dnrm.herokuapp.com/', 'https://dnrm.herokuapp.com/'];
 
 //Connect to db. USES POOLING
 const sqlPool = mysql.createPool(config.db.connectionOp);
@@ -330,8 +330,10 @@ app.get('/data', function(req, res){
     function handleDBResp(err, resp){
         if(err) console.log(err);
 
-            //TEMP DEV ONLY
-            res.setHeader('Access-Control-Allow-Origin', process.env.PORT?'http://dnrm.herokuapp.com/':'localhost');
+            var origin = req.headers.origin;
+            if(DATA_ALLOWED_ORIGINS.indexOf(origin) > -1){
+                res.setHeader('Access-Control-Allow-Origin', origin);
+            }
             res.setHeader('Access-Control-Allow-Methods', 'GET');
             //console.log(resp);
         res.setHeader('Content-Type', 'application/json');
