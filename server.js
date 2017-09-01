@@ -9,7 +9,10 @@ console.log('-Server Init-');
 
 const mysql = require('mysql');
 const express = require('express');
-const config = require('./config');
+//use pubconfig for heroku deployment.
+//use config for local deployment.
+const config = require('./pubconfig');
+
 var app = express();
 
 
@@ -17,6 +20,7 @@ var app = express();
 const sqlPool = mysql.createPool(config.db.connectionOp);
 //test connection
 sqlPool.getConnection(function(err, connection) {
+	//TODO REMOVE THROWS
     if (err) throw err;
     connection.release();
     console.log("DB connected!");
@@ -300,6 +304,11 @@ function parseQueryParams(query){
 
 /*****BEGIN SERVER ROUTING*****/
 
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static('./build'));
+
+
+
 //CURRENT TYPES OF BROWSING:
 //  TOP SINCE string
 //  SCHOOL YEAR number
@@ -316,7 +325,7 @@ app.get('/data', function(req, res){
         if(err) console.log(err);
 
             //TEMP DEV ONLY
-            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+            res.setHeader('Access-Control-Allow-Origin', 'http://dnrm.herokuapp.com/');
             res.setHeader('Access-Control-Allow-Methods', 'GET');
             //console.log(resp);
         res.setHeader('Content-Type', 'application/json');
@@ -337,7 +346,6 @@ app.get('/data', function(req, res){
 //     res.send('//TODO: Insert dank memes');
 // });
 
-app.use(express.static('./build'));
 
 // Handle 404
 app.use(function (req, res) {
@@ -347,5 +355,7 @@ app.use(function (req, res) {
 
 /*****END SERVER ROUTING*****/
 
-app.listen(8080);
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'))
+});
 
