@@ -11,6 +11,7 @@ const mysql = require('mysql');
 const express = require('express');
 //use pubconfig for heroku deployment.
 //use config for local deployment.
+//const config = require('./config');
 const config = require('./pubconfig');
 
 var app = express();
