@@ -9,10 +9,14 @@ console.log('-Server Init-');
 
 const mysql = require('mysql');
 const express = require('express');
-//use pubconfig for heroku deployment.
-//use config for local deployment.
-//const config = require('./config');
-const config = require('./pubconfig');
+
+//use pubconfig for heroku deployment, config for local deployment.
+const config = process.env.IP?require('./pubconfig'):require('./config');
+//const config = require('./pubconfig');
+
+const airbrake = require('airbrake').createClient(config.ab.id, config.ab.key);
+airbrake.handleExceptions();
+
 
 var app = express();
 
@@ -326,7 +330,7 @@ app.get('/data', function(req, res){
         if(err) console.log(err);
 
             //TEMP DEV ONLY
-            res.setHeader('Access-Control-Allow-Origin', 'http://dnrm.herokuapp.com/');
+            res.setHeader('Access-Control-Allow-Origin', process.env.IP?'http://dnrm.herokuapp.com/':'localhost:3000');
             res.setHeader('Access-Control-Allow-Methods', 'GET');
             //console.log(resp);
         res.setHeader('Content-Type', 'application/json');
