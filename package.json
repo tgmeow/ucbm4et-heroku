@@ -10,6 +10,7 @@
     "mysql": "^2.14.0",
     "react": "^15.6.1",
     "react-aria-menubutton": "^5.0.2",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
     "react-scripts": "^1.0.10"
   },

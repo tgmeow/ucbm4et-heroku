@@ -9,7 +9,6 @@ const recentMenu = ['hour', 'day', 'week', 'month', 'year', 'all'];
 const boundMenuName = 'Dankest Memes of...'
 const boundMenu = ['2016', '2017'];
 
-const globalFont = {fontFamily:'Comic-sans, CURSIVE, Arial'};
 
 class App extends Component {
   constructor(props){
@@ -25,7 +24,7 @@ class App extends Component {
     const nowViewing = recentMenu.includes(this.state.selection)?('top memes of the past ' + this.state.selection.toLowerCase()) : ('Dankest Memes of ' + this.state.selection);
 
     return (
-      <div className="App" style={globalFont} >
+      <div className="App container">
         <div className="App-header">
           <h2>WeLcOmEtOrEaCt</h2>
           <h2>{nowViewing}</h2>

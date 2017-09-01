@@ -30,6 +30,8 @@ class Meme extends Component{
                         alt = {"No meme provided."}
                     />
         }
+
+        let video = this.props.type=='video'?'Video':'';
         
         let today = new Date();
         let postDT = this.props.created_time.split('.')[0].split('T');
@@ -63,6 +65,7 @@ class Meme extends Component{
                     <br/>
                     <span>{postActualDate.toString()}</span>
                     <div style={{clear:'both'}}>
+                        {video}
                         {image}
                     </div>
                 </div>
