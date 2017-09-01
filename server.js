@@ -21,7 +21,7 @@ airbrake.handleExceptions();
 
 var app = express();
 
-const DATA_ALLOWED_ORIGINS = ['http://dnrm.herokuapp.com/', 'https://dnrm.herokuapp.com/'];
+const DATA_ALLOWED_ORIGINS = ['http://dnrm.herokuapp.com', 'https://dnrm.herokuapp.com'];
 
 //Connect to db. USES POOLING
 const sqlPool = mysql.createPool(config.db.connectionOp);
