@@ -11,7 +11,7 @@ config.db.conlimit = 10;
 //database port
 config.db.port = 3306;
 //conversion to local time is done on client side
-config.db.timezone = '-0000'; 
+config.db.timezone = '-0000';
 //utf8mb4 allows for emojis, whereas utf8 does not
 config.db.charset = 'utf8mb4';
 
@@ -29,19 +29,19 @@ config.db.dbPass = process.env.JAWSDB_PASS;
 
 config.db.connectionOp =
     {
-    connectionLimit: config.db.conlimit,
-    host: config.db.host,
-    port: config.db.port,
-    timezone: config.db.timezone,
-    user: config.db.dbUser,
-    password: config.db.dbPass,
-    database: config.db.dbName,
-    charset : config.db.charset
-};
+        connectionLimit: config.db.conlimit,
+        host: config.db.host,
+        port: config.db.port,
+        timezone: config.db.timezone,
+        user: config.db.dbUser,
+        password: config.db.dbPass,
+        database: config.db.dbName,
+        charset: config.db.charset
+    };
 
 
 //airbrake config
-config.ab={};
+config.ab = {};
 config.ab.id = process.env.AIRBRAKE_PROJECT_ID; // Project ID
 config.ab.key = process.env.AIRBRAKE_API_KEY; // Project key
 
