@@ -84,6 +84,8 @@ class App extends Component {
                         pageSize={PAGE_SIZE}
                     >Loading...</MemesList>
                 </div>
+                <div className="App-footer" style={{height:'10px'}} >
+                </div>
             </div>
         );
     }

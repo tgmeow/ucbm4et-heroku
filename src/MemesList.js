@@ -1,7 +1,9 @@
 //Holds all of the memes
 import React, { Component } from 'react';
 import Meme from './Meme.js';
-import MySingleButton from './MySingleButton.js';
+
+import {Button, ButtonToolbar} from 'react-bootstrap';
+
 
 import axios from 'axios';
 
@@ -40,10 +42,10 @@ class MemesList extends Component {
 
     render() {
         var memeComponents = '';
-        var loadMoreButton = '';
+        var newLoadButton = '';
         if (this.state.data.length === 0) {
             memeComponents = 'No results. ';
-            loadMoreButton = 'No more memes.'
+            newLoadButton = 'No more memes.'
         } else {
             console.log('MemesList Rendered');
             //console.log(this.state.data);
@@ -59,18 +61,20 @@ class MemesList extends Component {
                     full_picture={memeItem.full_picture}
                 />
             ));
+            
 
-            loadMoreButton =
-                <MySingleButton
-                    buttonName={loadMoreText}
-                    onSelect={loadNextPage.bind(this)}
-                />;
+            const wellStyles = {maxWidth: 400, margin: '0 auto 10px'};
+            newLoadButton = (
+            <div className="well" style={wellStyles}>
+                <Button bsStyle="primary" bsSize="large" block onClick={loadNextPage.bind(this)}>{loadMoreText}</Button>
+            </div>
+            );
         }
 
         return (
             <div>
                 {memeComponents}
-                {loadMoreButton}
+                {newLoadButton}
             </div>
 
         );
