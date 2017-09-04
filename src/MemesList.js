@@ -7,7 +7,6 @@ import axios from 'axios';
 
 const DATA_HOST = 'https://dnrm.herokuapp.com/data';
 
-const PAGE_SIZE = 20;
 const loadMoreText = 'Click to load more.';
 
 
@@ -22,7 +21,7 @@ class MemesList extends Component {
 
     componentDidMount() {
         console.log('Mounted: ' + this.props.selection);
-        getPageElements(this.props.selection, PAGE_SIZE, 0, function (newData) {
+        getPageElements(this.props.selection, this.props.PAGE_SIZE, 0, function (newData) {
             this.setState({ data: newData });
             //this.setState({data:tempData.data});
         }.bind(this));
@@ -31,7 +30,7 @@ class MemesList extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.selection !== this.props.selection) {
             console.log('Updated: ' + this.props.selection);
-            getPageElements(this.props.selection, PAGE_SIZE, 0, function (newData) {
+            getPageElements(this.props.selection, this.props.PAGE_SIZE, 0, function (newData) {
                 this.setState({ data: newData });
             }.bind(this));
             //load first page
@@ -62,20 +61,11 @@ class MemesList extends Component {
             ));
 
             loadMoreButton =
-                // <Button
-                //     onPress={loadNextPage}
-                //     title={loadMoreText}
-                //     color='#444'
-                //     accessibilityLabel='Click here to load more memes.'
-                // />;
                 <MySingleButton
                     buttonName={loadMoreText}
                     onSelect={loadNextPage.bind(this)}
                 />;
         }
-
-
-
 
         return (
             <div>
@@ -102,7 +92,7 @@ function getPageElements(selection, number, skip, callback) {
 //TODO: DISABLE BUTTON UNTIL REQUEST RETURN, DISABLE BUTTON IF NO MORE ITEMS, LOADING ANIMATION
 function loadNextPage() {
     console.log('LOADING NEXT PAGE');
-    getPageElements(this.props.selection, PAGE_SIZE, this.state.data.length, function (data) {
+    getPageElements(this.props.selection, this.props.PAGE_SIZE, this.state.data.length, function (data) {
         this.setState({ data: this.state.data.concat(data) });
     }.bind(this));
 }

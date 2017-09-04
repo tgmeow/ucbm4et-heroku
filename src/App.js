@@ -1,56 +1,76 @@
 import React, { Component } from 'react';
 import MemesList from './MemesList.js';
 
-import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, MenuItem } from 'react-bootstrap';
 
-const recentMenuKey = 1;
-const recentMenuName = 'Top posts in the last...'
-const recentMenu = ['hour', 'day', 'week', 'month', 'year', 'all'];
+const RECENT_MENU_KEY = 1;
+const RECENT_MENU_NAME = 'Top posts in the last...'
+const RECENT_MENU = ['hour', 'day', 'week', 'month', 'year', 'all'];
 
-const boundMenuKey = 2;
-const boundMenuName = 'Dankest Memes of...'
-const boundMenu = ['2016', '2017'];
+const BOUND_MENU_KEY = 2;
+const BOUND_MENU_NAME = 'Dankest Memes of (school year)'
+const BOUND_MENU_START = '2016';
 
+const STATE_DEFAULT_SELECTION = 'day';
+const PAGE_SIZE = 20;
 
 class App extends Component {
     constructor(props) {
         super(props);
+        //selection WILL be one of the valid menu items
+        //lets do 0 index paging :D
         this.state = {
-            selection: 'day'
+            selection: STATE_DEFAULT_SELECTION,
+            page: 0
         }
     }
 
     render() {
-        const recentMenuItems = recentMenu.map((menuItem, index) => (
-            <MenuItem eventKey={menuItem} onSelect={setAppState.bind(this)} > {menuItem}
+        //Determine pathing and parameters
+        //Defaults: no params. page 1 of STATE_DEFAULT_SELECTION
+        //params: time=[menuItem], page=[any#]
+        //TODO: Indexed pagination thing, => MemesList the skip amount
+        //Size of indexes det by... Node server makes a cache of number of elements in xyz
+        //      updates cache upon updating server data
+
+        //create recent time menu items
+        const recentMenuItems = RECENT_MENU.map((menuItem, index) => (
+            <MenuItem key={menuItem} eventKey={menuItem} onSelect={setAppState.bind(this)} > {menuItem}
             </MenuItem>
         ));
 
+        //create bound menu items
+        var boundMenu = [];
+        let today = new Date();
+        for(let year = BOUND_MENU_START; year <= today.getUTCFullYear(); ++year){
+            boundMenu.push(year);
+        }
         const boundMenuItems = boundMenu.map((menuItem, index) => (
-            <MenuItem eventKey={menuItem} onSelect={setAppState.bind(this)} > {menuItem}
+            <MenuItem key={menuItem} eventKey={menuItem} onSelect={setAppState.bind(this)} > {menuItem}
             </MenuItem>
         ));
 
+        //create navbar
         const navbarInstance = (
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">Dank (Old) Rand Memes</a>
+                        Dank (Old) Rand Memes
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
-                    <NavDropdown eventKey={recentMenuKey} title={recentMenuName} id="basic-nav-dropdown">
+                    <NavDropdown eventKey={RECENT_MENU_KEY} title={RECENT_MENU_NAME} id="basic-nav-dropdown">
                         {recentMenuItems}
                     </NavDropdown>
-                    <NavDropdown eventKey={boundMenuKey} title={boundMenuName} id="basic-nav-dropdown">
+                    <NavDropdown eventKey={BOUND_MENU_KEY} title={BOUND_MENU_NAME} id="basic-nav-dropdown">
                         {boundMenuItems}
                     </NavDropdown>
                 </Nav>
             </Navbar>
         );
 
-        //TODO generate header buttons
-        const nowViewing = recentMenu.includes(this.state.selection) ? ('top memes of the past ' + this.state.selection.toLowerCase()) : ('Dankest Memes of ' + this.state.selection);
+        //current state info
+        const nowViewing = RECENT_MENU.includes(this.state.selection) ? ('top memes of the past ' + this.state.selection.toLowerCase()) : ('Dankest Memes of ' + this.state.selection);
 
         return (
             <div className="App container">
@@ -61,6 +81,7 @@ class App extends Component {
                 <div className="App-body">
                     <MemesList
                         selection={this.state.selection}
+                        pageSize={PAGE_SIZE}
                     >Loading...</MemesList>
                 </div>
             </div>
