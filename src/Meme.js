@@ -75,14 +75,15 @@ class Meme extends Component {
                 <div className="clearfix visible-xs-block"></div>
                 <div className='col-sm-11'>
                     <div style={textblock}>
-                        <span>
-                            <a href={link} rel='noopener noreferrer' target='_blank'>Open in Facebook</a>
-                        </span>
                         <p className='lead'>
-                            {this.props.message}
+                            <small>
+                                <a href={link} rel='noopener noreferrer' target='_blank'>Open in Facebook</a>
+                            </small>
+                            <br/>
+                            <span style={{fontSize:'1.2em', fontWeight:'bold'}} >{this.props.message}</span>
+                            <br/>
+                            <small className='text-muted'>{stringDiff} {postActualDate.toString().split(' GMT')[0]}</small>
                         </p>
-                        <span>{stringDiff} {postActualDate.toString().split(' GMT')[0]}</span>
-                        <br/>
                         {video}
                     </div>
    

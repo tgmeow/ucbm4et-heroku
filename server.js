@@ -310,6 +310,7 @@ function parseQueryParams(query) {
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static('./build'));
+app.use('/static', express.static('./static'));
 
 
 //CURRENT TYPES OF BROWSING:
