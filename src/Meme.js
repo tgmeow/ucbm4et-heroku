@@ -5,27 +5,23 @@ import React, { Component } from 'react';
 const wholeDivS = {
     width:'100%',
     clear: 'both',
-    backgroundColor: '#eee',
-    display: 'inline-block'
+    backgroundColor: '#f8f8f8',
+    border: 'solid 1px #e7e7e7',
+    display: 'inline-block',
+    marginBottom: '1em'
 };
 
 const left = {
-    float: 'left',
-    margin: '1em 0px 0px 2em',
+    //float: 'left',
+    marginTop: '1em',
 };
 
 const textblock = {
-    margin:'1em 2em'
+    margin:'1em 0px 1em'
 }
 
-const right = {
-    float: 'left',
-    width:'90%'
-};
-
 const imgDiv = {
-    clear: 'both',
-    marginBottom:'1em',
+    clear: 'both'
 };
 const imgSty = {
     marginLeft:'auto',
@@ -72,12 +68,12 @@ class Meme extends Component {
         let link = 'https://www.facebook.com/' + this.props.id;
 
         return (
-            <div style={wholeDivS}>
-                <div style={left}>
-                    <b>{this.props.likes}</b>
+            <div className='' style={wholeDivS}>
+                <div className='col-xs-1' style={left}>
+                    <h4 style={{margin:'0px'}} ><b>{this.props.likes}</b></h4>
                 </div>
-
-                <div style={right}>
+                <div className="clearfix visible-xs-block"></div>
+                <div className='col-sm-11'>
                     <div style={textblock}>
                         <span>
                             <a href={link} rel='noopener noreferrer' target='_blank'>Open in Facebook</a>

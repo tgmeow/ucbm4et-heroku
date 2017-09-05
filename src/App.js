@@ -73,18 +73,18 @@ class App extends Component {
         const nowViewing = RECENT_MENU.includes(this.state.selection) ? ('top memes of the past ' + this.state.selection.toLowerCase()) : ('Dankest Memes of ' + this.state.selection);
 
         return (
-            <div className="App container">
+            <div className="App">
                 {navbarInstance}
-                <div className="App-header">
-                    <h2>{nowViewing}</h2>
+                <div className="App-header container">
+                    <h2 style={{marginTop:'0px'}} >{nowViewing}</h2>
                 </div>
-                <div className="App-body">
+                <div className="App-body container">
                     <MemesList
                         selection={this.state.selection}
                         pageSize={PAGE_SIZE}
                     >Loading...</MemesList>
                 </div>
-                <div className="App-footer" style={{height:'10px'}} >
+                <div className="App-footer container" style={{height:'10px'}} >
                 </div>
             </div>
         );
