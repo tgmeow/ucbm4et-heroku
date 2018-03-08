@@ -7,16 +7,16 @@
 //NOTE: USES GMT (UTC) TIME
 console.log('-Server Init-');
 
-const mysql = require('mysql');
-const express = require('express');
+var mysql = require('mysql');
+var express = require('express');
 var http = require('http');
 var https = require('https');
 
 //use pubconfig for heroku deployment, config for local deployment.
-const config = process.env.PORT ? require('./pubconfig') : require('./config');
+var config = process.env.PORT ? require('./pubconfig') : require('./config');
 
-const airbrake = require('airbrake').createClient(config.ab.id, config.ab.key);
-airbrake.handleExceptions();
+var AirbrakeClient = require('airbrake-js');
+var airbrake = new AirbrakeClient(config.ab);
 
 var app = express();
 
@@ -28,7 +28,10 @@ const sqlPool = mysql.createPool(config.db.connectionOp);
 sqlPool.getConnection(function (err, connection) {
     //TODO REMOVE THROWS
     connection.release();
-    if (err) throw err;
+    if (err){
+		airbrake.notify(err);
+		throw err;
+	}
     console.log("DB connected!");
 });
 //END connect to db
@@ -182,7 +185,10 @@ function pooledQuery(sqlQuery, callback) {
     sqlPool.getConnection(function (err, connection) {
         connection.query(sqlQuery, function (err, res) {
             connection.release();
-            if (err) console.log('Error getting data from db!');
+            if (err) {
+				airbrake.notify(err);
+				console.log('Error getting data from db!');
+			}
             else {
                 if (typeof callback === 'function') callback(err, res);
                 else console.log('Error query callback is not a function.');
@@ -326,7 +332,10 @@ app.get('/data', function (req, res) {
     let parsed = parseQueryParams(req.query);
 
     function handleDBResp(err, resp) {
-        if (err) console.log(err);
+        if (err){
+			airbrake.notify(err);
+			console.log(err);
+		}
 
         var origin = req.headers.origin;
         if (DATA_ALLOWED_ORIGINS.indexOf(origin) > -1) {
@@ -344,7 +353,10 @@ app.get('/data', function (req, res) {
     else if ('bound' in parsed && parsed.bound)
         getBoundDBData(parsed.sort, parsed.order, parsed.time, parsed.count, parsed.skip, handleDBResp);
 
-    else console.log('ERROR WITH PARAM PARSING! NEVER SHOULD HAPPEN!');
+    else {
+		airbrake.notify('ERROR WITH PARAM PARSING! NEVER SHOULD HAPPEN!');
+		console.log('ERROR WITH PARAM PARSING! NEVER SHOULD HAPPEN!');
+	}
 });
 
 // app.get('/', function(req, res){

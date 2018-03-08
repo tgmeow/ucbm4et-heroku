@@ -42,8 +42,8 @@ config.db.connectionOp =
 
 //airbrake config
 config.ab = {};
-config.ab.id = process.env.AIRBRAKE_PROJECT_ID; // Project ID
-config.ab.key = process.env.AIRBRAKE_API_KEY; // Project key
+config.ab.projectId = process.env.AIRBRAKE_PROJECT_ID; // Project ID
+config.ab.projectKey = process.env.AIRBRAKE_API_KEY; // Project key
 
 
 //Bounds for queries
