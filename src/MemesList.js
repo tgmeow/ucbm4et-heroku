@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Meme from './Meme.js';
 
-import {Button, ButtonToolbar} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 
 import axios from 'axios';

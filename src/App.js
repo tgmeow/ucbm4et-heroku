@@ -34,7 +34,7 @@ class App extends Component {
         //      updates cache upon updating server data
 
         //create recent time menu items
-        const recentMenuItems = RECENT_MENU.map((menuItem, index) => (
+        var recentMenuItems = RECENT_MENU.map((menuItem, index) => (
             <MenuItem key={menuItem} eventKey={menuItem} onSelect={setAppState.bind(this)} > {menuItem}
             </MenuItem>
         ));
@@ -45,17 +45,17 @@ class App extends Component {
         for(let year = BOUND_MENU_START; year <= today.getUTCFullYear(); ++year){
             boundMenu.push(year);
         }
-        const boundMenuItems = boundMenu.map((menuItem, index) => (
+        var boundMenuItems = boundMenu.map((menuItem, index) => (
             <MenuItem key={menuItem} eventKey={menuItem} onSelect={setAppState.bind(this)} > {menuItem}
             </MenuItem>
         ));
 
         //create navbar
-        const navbarInstance = (
+        var navbarInstance = (
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        Dank (Old) Rand Memes
+                        UC B R Edgy Teens
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
@@ -70,7 +70,7 @@ class App extends Component {
         );
 
         //current state info
-        const nowViewing = RECENT_MENU.includes(this.state.selection) ? ('top memes of the past ' + this.state.selection.toLowerCase()) : ('Dankest Memes of ' + this.state.selection);
+        var nowViewing = RECENT_MENU.includes(this.state.selection) ? ('top memes of the past ' + this.state.selection.toLowerCase()) : ('Dankest Memes of ' + this.state.selection);
 
         return (
             <div className="App">

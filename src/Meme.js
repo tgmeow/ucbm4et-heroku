@@ -25,7 +25,8 @@ const imgDiv = {
 };
 const imgSty = {
     marginLeft:'auto',
-    marginRight:'auto'
+    marginRight:'auto',
+	maxWidth:'100%'
 };
 
 
