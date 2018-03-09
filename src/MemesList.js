@@ -25,7 +25,7 @@ class MemesList extends Component {
     componentDidMount() {
         console.log('Mounted: ' + this.props.selection);
         getPageElements(this.props.selection, this.props.PAGE_SIZE, 0, function (newData) {
-            this.setState({ data: newData });
+            this.setState({ data: newData, hasMore: true });
             //this.setState({data:tempData.data});
         }.bind(this));
         //load first page
@@ -34,7 +34,7 @@ class MemesList extends Component {
         if (prevProps.selection !== this.props.selection) {
             console.log('Updated: ' + this.props.selection);
             getPageElements(this.props.selection, this.props.PAGE_SIZE, 0, function (newData) {
-                this.setState({ data: newData });
+                this.setState({ data: newData, hasMore: true });
             }.bind(this));
             //load first page
         }
