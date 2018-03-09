@@ -16,7 +16,8 @@ class MemesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+			hasMore: true
         }
     }
 
@@ -43,6 +44,9 @@ class MemesList extends Component {
     render() {
         var memeComponents = '';
         var newLoadButton = '';
+		if(!this.state.hasMore){
+			 newLoadButton = 'No more memes.'
+		}
         if (this.state.data.length === 0) {
             memeComponents = 'No results. ';
             newLoadButton = 'No more memes.'
@@ -96,9 +100,14 @@ function getPageElements(selection, number, skip, callback) {
 //TODO: DISABLE BUTTON UNTIL REQUEST RETURN, DISABLE BUTTON IF NO MORE ITEMS, LOADING ANIMATION
 function loadNextPage() {
     console.log('LOADING NEXT PAGE');
-    getPageElements(this.props.selection, this.props.PAGE_SIZE, this.state.data.length, function (data) {
-        this.setState({ data: this.state.data.concat(data) });
-    }.bind(this));
+    getPageElements(this.props.selection, this.props.PAGE_SIZE, this.state.data.length,
+		function (data) {
+			if(data.length === 0){
+				this.setState({hasMore: false});
+			} else{
+				this.setState({ data: this.state.data.concat(data) });
+			}
+		}.bind(this));
 }
 
 export default MemesList;

@@ -22,8 +22,6 @@ var airbrake = new AirbrakeClient(config.ab);
 
 var app = express();
 
-const DATA_ALLOWED_ORIGINS = ['*']; //allow all test
-
 //Connect to db. USES POOLING
 var sqlPool = mysql.createPool(config.db.connectionOp);
 //sqlPool.end();
@@ -326,6 +324,9 @@ function parseQueryParams(query) {
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static('./build'));
 app.use('/static', express.static('./static'));
+app.use(function(req, res, next) {
+  next();
+});
 
 
 //CURRENT TYPES OF BROWSING:
@@ -345,23 +346,20 @@ app.get('/data', function (req, res) {
 			airbrake.notify(err);
 			console.log(err);
 		}
-
-        var origin = req.headers.origin;
-        if (DATA_ALLOWED_ORIGINS.indexOf(origin) > -1) {
-            res.setHeader('Access-Control-Allow-Origin', origin);
-        }
-        res.setHeader('Access-Control-Allow-Methods', 'GET');
-        //console.log(resp);
-        res.setHeader('Content-Type', 'application/json');
+		res	.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header('Access-Control-Allow-Methods', 'GET');
+        //console.log(res);
+        res.header('Content-Type', 'application/json');
         res.send(JSON.stringify({ data: resp }));
     }
 
-    if ('bound' in parsed && !parsed.bound)
+    if ('bound' in parsed && !parsed.bound){
         getRecentDBData(parsed.sort, parsed.order, parsed.time, parsed.count, parsed.skip, handleDBResp);
-
-    else if ('bound' in parsed && parsed.bound)
+	}
+    else if ('bound' in parsed && parsed.bound){
         getBoundDBData(parsed.sort, parsed.order, parsed.time, parsed.count, parsed.skip, handleDBResp);
-
+	}
     else {
 		airbrake.notify('ERROR WITH PARAM PARSING! NEVER SHOULD HAPPEN!');
 		console.log('ERROR WITH PARAM PARSING! NEVER SHOULD HAPPEN!');
