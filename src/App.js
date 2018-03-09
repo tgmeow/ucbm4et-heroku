@@ -55,7 +55,7 @@ class App extends Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        UC B R Edgy Teens
+                        UC B M F Edgy Teens
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>

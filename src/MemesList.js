@@ -7,7 +7,7 @@ import {Button} from 'react-bootstrap';
 
 import axios from 'axios';
 
-const DATA_HOST = 'https://ucbm4et.herokuapp.com/data';
+const DATA_HOST = 'https://ucbmfet.herokuapp.com/data';
 
 const loadMoreText = 'Click to load more.';
 
