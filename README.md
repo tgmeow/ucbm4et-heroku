@@ -36,7 +36,7 @@ A website to view memes better. Pulls data from Facebok groups using Graph API a
 	* Add Airbrake for error reporting (optional, but would need changes to this code if it's not included)
 	* Store the Airbrake details into the Heroku Config Variables named EXACTLY as shown (SEE IMAGE)
 	* Create a table in JawsDB with the following mess. (How to do this? Well.... I used MySQL Workbench to log in to the server. Login details can be found in Heroku by clicking on JawsDB. After logging in to MySQL Workbench, you can see your empty database. Run the following mess in the SQL query tab to create your table.)
-	* ```
+	```
 	CREATE TABLE `memes` (
   `id` bigint(20) unsigned NOT NULL,
   `message` mediumtext,
