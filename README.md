@@ -53,8 +53,9 @@ A website to view memes better. Pulls data from Facebok groups using Graph API a
   KEY `created_time` (`created_time`,`likes`),
   KEY `from_id` (`from_id`),
   KEY `last_updated` (`last_updated`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 PACK_KEYS=1
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 PACK_KEYS=1
 	```
+
 	* Log in to Facebook Developers and create an application. 
 	* Store the APP ID and APP SECRET in the Heroku Config Variables named EXACTLY as shown (SEE IMAGE)
 	* Find the permalink ID of the facebook group that you want to pull data from and store that in the Heroku Config Variables. If it is a public group, you only need to be a member of the group. If it is a closed group, you have to be an admin of the group. If it is a secret group, I THINK you have to be an admin but I am not certain if it will still work.
