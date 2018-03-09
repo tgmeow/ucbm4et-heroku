@@ -15,7 +15,7 @@ var https = require('https');
 var myscraper = require('./mysqlscrape');
 
 //use pubconfig for heroku deployment, config for local deployment.
-var config = process.env.PORT ? require('./pubconfig') : require('./config');
+var config = (process.env.PORT !== undefined) ? require('./pubconfig') : require('./config');
 
 var AirbrakeClient = require('airbrake-js');
 var airbrake = new AirbrakeClient(config.ab);

@@ -16,7 +16,7 @@ process.env.UV_THREADPOOL_SIZE = 128;
 var graph = require('fbgraph');
 var mysql = require('mysql');
 
-var config = process.env.PORT ? require('./pubconfig') : require('./config');
+var config = (process.env.PORT !== undefined) ? require('./pubconfig') : require('./config');
 
 var AirbrakeClient = require('airbrake-js');
 var airbrake = new AirbrakeClient(config.ab);
