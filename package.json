@@ -1,6 +1,9 @@
 {
   "name": "memes-server",
   "version": "1.0.0",
+  "engines": {
+    "npm": "5.7.1"
+  },
   "description": "Server side memes retriever",
   "main": "server.js",
   "dependencies": {
