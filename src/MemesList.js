@@ -44,9 +44,7 @@ class MemesList extends Component {
     render() {
         var memeComponents = '';
         var newLoadButton = '';
-		if(!this.state.hasMore){
-			 newLoadButton = 'No more memes.'
-		}
+		
         if (this.state.data.length === 0) {
             memeComponents = 'No results. ';
             newLoadButton = 'No more memes.'
@@ -65,14 +63,18 @@ class MemesList extends Component {
                     full_picture={memeItem.full_picture}
                 />
             ));
-            
 
             const wellStyles = {maxWidth: 400, margin: '0 auto 10px'};
-            newLoadButton = (
-            <div className="well" style={wellStyles}>
-                <Button bsStyle="primary" bsSize="large" block onClick={loadNextPage.bind(this)}>{loadMoreText}</Button>
-            </div>
-            );
+			
+			if(!this.state.hasMore){
+				newLoadButton = 'No more memes.'
+			} else{
+				newLoadButton = (
+				<div className="well" style={wellStyles}>
+					<Button bsStyle="primary" bsSize="large" block onClick={loadNextPage.bind(this)}>{loadMoreText}</Button>
+				</div>
+				);
+			}
         }
 
         return (
