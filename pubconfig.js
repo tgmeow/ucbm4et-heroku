@@ -20,6 +20,8 @@ config.feed.groupOptions = '?fields=from,created_time,updated_time,message,objec
 
 //options for updating data
 config.update = {};
+config.update.newFreq = 29*60*1000;	//get new posts every 29 minutes
+config.update.oldFreq = 61*60*1000; //update old posts every 61 minutes
 config.update.minLikes = 500;	//GIVEN THE 5MB LIMIT AND NUMBER OF POSTS, I NEED A MIN NUMBER OF LIKES TO STAY UNDER THE LIMIT
 config.update.increment = 100;
 config.update.likesOptions = '?fields=reactions.limit(0).summary(1)';	//likes for each post

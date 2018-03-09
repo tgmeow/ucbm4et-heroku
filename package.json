@@ -7,6 +7,7 @@
     "airbrake-js": "^1.0.7",
     "axios": "^0.16.2",
     "express": "^4.16.2",
+    "fbgraph": "^1.4.1",
     "history": "^4.7.2",
     "mysql": "^2.15.0",
     "react": "^15.6.2",

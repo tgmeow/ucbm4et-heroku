@@ -12,6 +12,8 @@ var express = require('express');
 var http = require('http');
 var https = require('https');
 
+var myscraper = require('./mysqlscrape');
+
 //use pubconfig for heroku deployment, config for local deployment.
 var config = process.env.PORT ? require('./pubconfig') : require('./config');
 
@@ -20,14 +22,15 @@ var airbrake = new AirbrakeClient(config.ab);
 
 var app = express();
 
-const DATA_ALLOWED_ORIGINS = ['http://ucbm4et.herokuapp.com', 'https://ucbm4et.herokuapp.com'];
+const DATA_ALLOWED_ORIGINS = ['*']; //allow all test
 
 //Connect to db. USES POOLING
-const sqlPool = mysql.createPool(config.db.connectionOp);
+var sqlPool = mysql.createPool(config.db.connectionOp);
+//sqlPool.end();
 //test connection
 sqlPool.getConnection(function (err, connection) {
     //TODO REMOVE THROWS
-    connection.release();
+    if(connection) connection.release();
     if (err){
 		airbrake.notify(err);
 		throw err;
@@ -35,6 +38,12 @@ sqlPool.getConnection(function (err, connection) {
     console.log("DB connected!");
 });
 //END connect to db
+
+
+//start frequency to get new posts
+setInterval(myscraper.getNew, config.update.newFreq);//config.update.newFreq);
+setInterval(myscraper.updateExisting, config.update.oldFreq);
+
 
 /*****BEGIN VARIABLES*****/
 
