@@ -65,8 +65,9 @@ A website to view memes better. Pulls data from Facebok groups using Graph API a
 	* Pray everything works
 	
 ## License
-	I don't really know how this works but
-	You may: copy, share, modify, use privately
-	You may not: modify these licensing terms, use anything here for commercial purposes, hold anyone liable for anything related to this, or expect any kind of warranty.
-	Note: I may be violating some terms and services of the Facebook API with this application but I have no idea if I actually am.
+
+I don't really know how this works but
+You may: copy, share, modify, use privately
+You may not: modify these licensing terms, use anything here for commercial purposes, hold anyone liable for anything related to this, or expect any kind of warranty.
+Note: I may be violating some terms and services of the Facebook API with this application but I have no idea if I actually am.
 	
