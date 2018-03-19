@@ -250,11 +250,13 @@ function getIDLikes(id, callback, retry){
             let postDeleted2 = 'message' in err && err.message == 'No node specified';
             if(postDeleted1){
                 //console.log('WARN: Post deleted1. id: ' + id);
-				airbrake.notify('WARN: Post deleted1. id: ' + id);
+				//airbrake.notify('WARN: Post deleted1. id: ' + id);
+				//TODO
                 if(doCB) callback(null, -1);
             } else if(postDeleted2){
                 //console.log('WARN: Post deleted2. id: ' + id);
-				airbrake.notify('WARN: Post deleted2. id: ' + id);
+				//airbrake.notify('WARN: Post deleted2. id: ' + id);
+				//TODO
                 if(doCB) callback(null, -1);
             }
             else{
